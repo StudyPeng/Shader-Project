@@ -64,11 +64,11 @@ Shader "Unlit/WaterShader"
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 float depth = LinearEyeDepth(SampleSceneDepth(uv), _ZBufferParams);
                 float waterDepthDiff = clamp((depth - i.screenPos.w) / _RampDistance, 0, 1);
-                float foamDepthDiff = clamp(depth - i.screenPos.w, 0, 1);
+                float foamDepthDiff = clamp(depth - i.screenPos.w, 0, 1) / _FoamThickness;
                 foamDepthDiff *= _NoiseCutOff;
-                noise = step(foamDepthDiff, noise);
-                half4 waterColor = lerp(_ShallowColor, _DeepColor, noise);
-                return waterColor;
+                float foam = step(foamDepthDiff, noise);
+                half4 waterColor = lerp(_ShallowColor, _DeepColor, waterDepthDiff);
+                return waterColor + foam;
             }
             ENDHLSL
         }
