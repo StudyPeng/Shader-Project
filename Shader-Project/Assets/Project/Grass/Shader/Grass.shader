@@ -15,10 +15,20 @@
         {
             "RenderType"="Opaque"
         }
-        LOD 200
-        Cull Off
+
         Pass
         {
+            Name "ForwardLit"
+            Tags
+            {
+                "RenderType"="Opaque"
+                "Queue"="Geometry"
+                "LightMode"="UniversalForward"
+            }
+            
+            ZWrite On
+            Cull Off
+            
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag

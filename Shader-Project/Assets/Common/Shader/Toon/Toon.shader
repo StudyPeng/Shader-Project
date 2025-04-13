@@ -16,6 +16,7 @@ Shader "Unlit/Toon"
     }
     SubShader
     {
+        ZWrite On
         Tags
         {
             "RenderPipeline" = "UniversalPipeline"
